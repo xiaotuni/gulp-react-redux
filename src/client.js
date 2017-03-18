@@ -1,14 +1,14 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createStore from './redux/create';
-import ApiClient from './helpers/ApiClient';
 import { Provider } from 'react-redux';
 import { IndexRoute, Route, Router, browserHistory, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-async-connect';
-import getRoutes from './routes';
 import { useBasename } from 'history';
+import createStore from './redux/create';
+import ApiClient from './helpers/ApiClient';
+import getRoutes from './routes';
 
 import config from './config';
 const client = new ApiClient();

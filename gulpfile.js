@@ -26,10 +26,12 @@ var dependencies = [
   'react-redux',
   'react-router',
   'react-router-redux',
+  'react-helmet',
   'redux',
   'redux-form',
   'redux-async-connect',
-  'react-addons-css-transition-group'
+  'react-addons-css-transition-group',
+  'babel-polyfill', 'history', 'superagent', 'events'
 ];
 // keep a count of the times a task refires
 var scriptsCount = 0;
