@@ -1,12 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { Utility, MyHref } from '../../components/index';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Helmet from 'react-helmet';
 import { EventEmitter } from 'events';
 const event = new EventEmitter();
 const styles = require('./scss/app.scss');
 
+/**
+ * 
+ * 
+ * @export
+ * @class App
+ * @extends {Component}
+ */
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object,                                // 子项

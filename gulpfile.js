@@ -13,9 +13,12 @@ var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
 var babelify = require('babelify');
 var clean = require('gulp-clean');
-var scssify = require('scssify')
+var scssify = require('scssify');
 var path = require('path');
 var connect = require('gulp-connect');
+var eslint = require('gulp-eslint');
+var sourcemaps = require('gulp-sourcemaps');
+var buffer = require('vinyl-buffer');
 
 var dependencies = [
   'react',
@@ -33,7 +36,6 @@ var scriptsCount = 0;
 
 gulp.task('scripts', function () {
   bundleApp(false);
-  console.log(new Date().toLocaleTimeString());
 });
 
 gulp.task('deploy', function () {
@@ -42,6 +44,7 @@ gulp.task('deploy', function () {
 
 gulp.task('watch', function () {
   gulp.watch(['./src/**/*.js', './src/**/*.jsx', './src/**/*.scss', './src/**/*.css'], ['scripts']);
+  gulp.watch(['./src/**/*.js', './src/**/*.jsx', '!node_modules/**'], ['eslint']);
 });
 
 
@@ -54,26 +57,61 @@ gulp.task('start', function () {
   return connect.server({ root: 'static', livereload: true, port: 20000 });
 });
 
-gulp.task('default', ['clean-dist', 'scripts', 'watch', 'start']);
+gulp.task('eslint', function () {
+  return gulp.src(['./src/**/*.js', './src/**/*.jsx', '!node_modules/**'])
+    .pipe(eslint({
+      baseConfig: {
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      }
+    }))
+    .pipe(eslint.results(results => {
+      if (results.errorCount > 0) {
+        console.log(`Total Errors: ${results.errorCount}`);
+        for (var i = 0; i < results.length; i++) {
+          var row = results[i];
+          var filePath = row.filePath;
+          var messages = row.messages;
+          var errorCount = row.errorCount;
+          if (errorCount > 0) {
+            console.log(filePath);
+            messages.forEach(function (msg) {
+              var message = msg.message;
+              var line = msg.line;
+              var column = msg.column;
+              console.log("  ", line + ':' + column, '  error  ', message);
+            });
+            console.log('---------------------');
+          }
+        }
+      }
+    }));
+});
+
+gulp.task('default', ['clean-dist', 'scripts', 'eslint', 'watch', 'start']);
 
 function bundleApp(isProduction) {
   scriptsCount++;
   var appBundler = browserify({
     entries: './src/client.js', extensions: ['', '.js', '.jsx', '.json', '.css', '.scss'],
     debug: true
-  })
+  });
 
   if (!isProduction && scriptsCount === 1) {
     browserify({ require: dependencies, debug: true })
       .bundle()
       .on('error', gutil.log)
       .pipe(source('vendors.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./static/dist/'));
   }
   if (!isProduction) {
     dependencies.forEach(function (dep) {
       appBundler.external(dep);
-    })
+    });
   }
 
   appBundler
@@ -88,10 +126,11 @@ function bundleApp(isProduction) {
     .bundle()
     .on('error', gutil.log)
     .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./static/dist/'))
-    // .pipe(new Promise(function (resolve) {
-    //   console.log('重置打包完成...' + new Date().toLocaleString());
-    //   resolve({});
-    // }))
     .pipe(connect.reload());
+
+  console.log(new Date().toLocaleTimeString());
 }

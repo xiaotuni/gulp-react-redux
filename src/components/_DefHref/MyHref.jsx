@@ -1,10 +1,11 @@
 /**
  * Created by  xiaotuni@gmail.com 
  */
+
+
 import React, { Component, PropTypes } from 'react';
-// import { Utility } from '../components/index';
 import { Utility } from '../../components/index';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 const styles = require('./scss/MyHref.scss');
 
 /**
@@ -24,6 +25,7 @@ export default class MyHref extends Component {
   }
 
   componentWillMount() {
+    // var abc
   }
 
   componentDidMount() {
@@ -66,7 +68,9 @@ export default class MyHref extends Component {
 
     return (
       <div className='myHref'>
-        <div className="item" onClick={() => { Utility.toPage(Utility.constItem.UrlItem.GoBack, {}); }}><div>返回</div></div>
+        <div className="item" onClick={() => {
+          Utility.toPage(Utility.constItem.UrlItem.GoBack, {});
+        }}><div>返回</div></div>
         {this.__BuildHref()}
       </div>
     );
