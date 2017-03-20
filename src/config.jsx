@@ -13,7 +13,7 @@ module.exports = Object.assign({
   apiHost: process.env.APIHOST || __host,
   apiPort: process.env.APIPORT,
   // ServerAPI: 'http://124.205.25.6/vep/api',                                        // 测试环境
-  // ServerAPI: 'http://10.1.1.117:8003/api',
+  ServerAPI: 'http://127.0.0.1:11000/WebApi',
   app: {
     title: 'XTN',
     description: 'XTN轻应用，手机应用程序.',
@@ -28,8 +28,7 @@ module.exports = Object.assign({
         { property: 'og:title', content: 'XTN' },
         { property: 'og:description', content: 'XTN轻应用，手机应用程序.' },
         { property: 'og:card', content: 'summary' },
-        { property: 'og:site', content: '@xinao' },
-        { property: 'og:creator', content: '@xinao' },
+        { property: 'og:creator', content: 'xiaotuni@gmail.com' },
         { property: 'og:image:width', content: '200' },
         { property: 'og:image:height', content: '200' }
       ],

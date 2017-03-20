@@ -119,7 +119,10 @@ function bundleApp(isProduction) {
   appBundler
     //.transform("babelify", { presets: ["es2015", "react", 'stage-0'] })      这里的配置放到package里面去了。
     // -----https://github.com/cody-greene/scssify
-    .transform("babelify", { "presets": ["es2015", "react", "stage-0"] })
+    .transform("babelify", {
+      "presets": ["es2015", "react", "stage-0"],
+      "plugins": ["transform-decorators-legacy"]
+    })
     .transform("scssify", {
       "export": false,
       "sass": { "outputStyle": "compressed", "includePaths": ["node_modules", "bower_components"] },
