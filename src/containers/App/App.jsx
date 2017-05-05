@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Utility, MyHref } from '../../components/index';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Helmet from 'react-helmet';
 import { EventEmitter } from 'events';
 const event = new EventEmitter();
 const styles = require('./scss/app.scss');
-
+import PropTypes from 'prop-types';
 /**
  * 
  * 
@@ -20,8 +20,8 @@ export default class App extends Component {
   }
   static contextTypes = {
     store: PropTypes.object.isRequired,
-    router: React.PropTypes.object.isRequired,
-    history: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   };
 
   constructor(props) {

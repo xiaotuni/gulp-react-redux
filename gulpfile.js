@@ -26,7 +26,7 @@ var dependencies = [
   'react-redux',
   'react-router',
   'react-router-redux',
-  'react-helmet',
+  'react-helmet', 'prop-types',
   'redux',
   'redux-form',
   'redux-async-connect',

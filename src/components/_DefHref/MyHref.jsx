@@ -1,9 +1,8 @@
 /**
  * Created by  xiaotuni@gmail.com 
  */
-
-
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Utility } from '../../components/index';
 import { Link } from 'react-router';
 const styles = require('./scss/MyHref.scss');

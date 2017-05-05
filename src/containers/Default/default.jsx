@@ -1,11 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { Utility, MyHref } from '../../components/index';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Utility, MyHref, Tooltip } from '../../components/index';
 import { connect } from 'react-redux';
 import * as CommonActions from '../../redux/modules/reduxCommon';
+const styles = require('./scss/Default.scss');
+
 @connect(state => ({
   Values: state.Common.Values,
-}),
-  { ...CommonActions })
+}), { ...CommonActions })
+
 export default class Default extends Component {
   static propTypes = {
     Values: PropTypes.array,
@@ -24,15 +27,20 @@ export default class Default extends Component {
       return;
     }
     onAPIGetValues({}).then(() => {
-      console.log('完成');
+      console.log('完成1');
     }, () => { });
   }
   render() {
     return (
-      <div>
+      <div className='defaultCss'>
         <MyHref />
         default Component
-
+        <div className="tooltipGroup">
+          <div className='tooltip'><Tooltip Title="左边" Position="Left" >哈哈</Tooltip></div>
+          <div className='tooltip'><Tooltip Title="上面" Position="Top" >嘿嘿~~</Tooltip></div>
+          <div className='tooltip'><Tooltip Title="下面" Position="Bottom" >看看</Tooltip></div>
+          <div className='tooltip'><Tooltip Title="右边" Position="Right" >说吧</Tooltip></div>
+        </div>
         <div>
           <div onClick={this.__InitData.bind(this)}>
             调用接口

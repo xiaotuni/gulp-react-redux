@@ -1,0 +1,13 @@
+.defaultCss {
+  .tooltipGroup {
+    display: flex;
+    padding: 0px 40px;
+    .tooltip {
+      margin: 5px;
+
+      > div {
+        text-align: center;
+      }
+    }
+  }
+}
