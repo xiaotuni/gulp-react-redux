@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Utility, MyHref } from '../../components/index';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-// import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Helmet from 'react-helmet';
 import { EventEmitter } from 'events';
 const event = new EventEmitter();
@@ -48,7 +47,6 @@ export default class App extends Component {
     this.context.router.goBack();
   }
 
-
   /**
    * 初始化监听路由事件
    * @private
@@ -65,7 +63,6 @@ export default class App extends Component {
       this.context.router.listen((obj) => {
         const { action } = obj;
         self.state.IsReturn = action === 'POP';
-        // Utility.printLog(obj);
       });
     } catch (ex) {
       console.log(ex);

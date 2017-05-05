@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { IndexRoute, Route, Router, browserHistory, hashHistory } from 'react-router';
+import { IndexRoute, Route, Router, browserHistory, hashHistory, createHistory, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-async-connect';
 import { useBasename } from 'history';
@@ -13,7 +13,10 @@ import getRoutes from './routes';
 import config from './config';
 const client = new ApiClient();
 
-const _browserHistory = useBasename(() => browserHistory)({
+// const _browserHistory = useBasename(() => browserHistory)({
+//   basename: '/web/'
+// });
+const _browserHistory = useBasename(() => hashHistory)({
   basename: config.app.BaseName || '/'
 });
 
@@ -22,8 +25,8 @@ const store = createStore(_browserHistory, client, window.__data);
 const history = syncHistoryWithStore(_browserHistory, store);
 
 const component = (
-  <Router render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }}
-    filter={item => !item.deferred} />} history={hashHistory}>
+  <Router basename="/web/" render={(props) => <ReduxAsyncConnect {...props} helpers={{ client }}
+    filter={item => !item.deferred} />} history={history}>
     {getRoutes(store)}
   </Router>
 );

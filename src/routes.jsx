@@ -1,6 +1,6 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import { App, Default, NotFound, OtherPage } from './containers/index.jsx';
+import { App, Default, NotFound, OtherPage } from './containers';
 
 
 export default () => {
