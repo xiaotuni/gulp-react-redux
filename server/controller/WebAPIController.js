@@ -34,8 +34,16 @@ var WebApi = {
   depts: function (req, res, opt) {
     const result = [];
     const CurrentTime = new Date().getTime() - 100000;
+    // console.log(opt);
+    const { GET } = opt;
+    const { pageIndex, pageSize } = GET;
+    console.log(pageIndex, pageSize);
+    const _index = Number(pageIndex) || 0;
+    const _size = Number(pageSize) || 10;
 
-    for (var i = 0; i < 10; i++) {
+    // console.log(_index, _size, _index * _size, (_index + 1) * _size);
+    // console.log('----------------');
+    for (var i = _index * _size; i < (_index + 1) * _size; i++) {
       result.push({
         Id: i,
         Guid: newGuid(),
