@@ -119,6 +119,19 @@ http.ServerResponse.prototype.Send404 = function (msg) {
     this.writeHead(404, { "content-type": "text/html;charset=utf-8" });
     this.SendErrorInfo(msg);
 }
+
+/**
+ * 错误页面
+ * @param data
+ * @constructor
+ */
+http.ServerResponse.prototype.SendErrorMsg = function (msgInfo) {
+    const { code, msg } = msgInfo;
+    this.statusCode = code || 400;
+    this.write(JSON.stringify(msgInfo));
+    this.end();
+}
+
 /**
  * 向页面输出信息.
  * @param Msg 消息内容

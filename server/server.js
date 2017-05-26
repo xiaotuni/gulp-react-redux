@@ -12,17 +12,22 @@ var Comm = require("./lib/commonMethod");
 global.Config = Comm.Comm.ReadConfig();
 
 function start(route) {
-    try {
-        var listenPort = global.Config.ListenPort || 80;
-        http.createServer(function (request, response) {
-            response.writeHead(200, { "Content-Type": "text/html;charset=utf-8", "Access-Control-Allow-Origin": "*" });
-            route(response, request);
-        }).listen(listenPort);
-        console.log("start http server :http://127.0.0.1:%d", listenPort);
-    }
-    catch (e) {
-        console.log(util.inspect(e, true, 3, true));
-    }
+  try {
+    var listenPort = global.Config.ListenPort || 80;
+    http.createServer(function (request, response) {
+      response.setHeader("Content-Type", "text/html;charset=utf-8");
+      response.setHeader("Access-Control-Allow-Origin", "*");
+      response.setHeader("access-control-allow-headers", "x-pingother, origin, x-requested-with, content-type, accept");
+      response.setHeader("access-control-allow-methods", "GET, POST, PUT, DELETE, OPTIONS");
+
+      // response.writeHead(200, { "Content-Type": "text/html;charset=utf-8", "Access-Control-Allow-Origin": "*" });
+      route(response, request);
+    }).listen(listenPort);
+    console.log("start http server :http://127.0.0.1:%d", listenPort);
+  }
+  catch (e) {
+    console.log(util.inspect(e, true, 3, true));
+  }
 }
 /**
  * 将方法公开可以让外面使用
