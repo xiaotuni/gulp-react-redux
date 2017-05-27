@@ -47,7 +47,7 @@ var WebApi = {
       result.push({
         Id: i,
         Guid: newGuid(),
-        DateTime: CurrentTime + Number(Math.random() * 10000)
+        DateTime: CurrentTime + Math.round(Number(Math.random() * 10000))
       });
     }
     res.SendJSON(result);
